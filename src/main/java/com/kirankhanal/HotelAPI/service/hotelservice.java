@@ -48,4 +48,8 @@ public class hotelservice {
     public void deleteHotelById(Long id){
         hotelrepository.deleteById(id);
     }
+    @Transactional
+    public void deleteAllHotels(){
+        hotelrepository.deleteAll();
+    }
 }

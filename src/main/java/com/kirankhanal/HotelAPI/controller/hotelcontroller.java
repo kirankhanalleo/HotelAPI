@@ -46,4 +46,9 @@ public class hotelcontroller {
         hotelservice.deleteHotelById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Hotel with id "+id+" deleted successfully");
     }
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<String> deleteAllHotel(){
+        hotelservice.deleteAllHotels();
+        return ResponseEntity.status(HttpStatus.OK).body("All hotels deleted successfully.");
+    }
 }
