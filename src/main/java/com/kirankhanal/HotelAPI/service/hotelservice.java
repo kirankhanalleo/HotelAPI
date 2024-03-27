@@ -29,19 +29,29 @@ public class hotelservice {
         return hotelrepository.findByLocation(location);
     }
     @Transactional
-    public hotel updateHotel(Long id, hotel updatedHotel){
+    public hotel updateHotel(Long id, hotel updatedHotel) {
         Optional<hotel> hotelInstance = hotelrepository.findById(id);
-        if(hotelInstance.isPresent()){
-            hotel existingHotel=hotelInstance.get();
-            existingHotel.setHotelName(updatedHotel.getHotelName());
-            existingHotel.setLocation(updatedHotel.getLocation());
-            existingHotel.setContact(updatedHotel.getContact());
-            existingHotel.setNumberOfRooms(updatedHotel.getNumberOfRooms());
-            existingHotel.setRates(updatedHotel.getRates());
+        if (hotelInstance.isPresent()) {
+            hotel existingHotel = hotelInstance.get();
+            if (updatedHotel.getHotelName() != null) {
+                existingHotel.setHotelName(updatedHotel.getHotelName());
+            }
+            if (updatedHotel.getLocation() != null) {
+                existingHotel.setLocation(updatedHotel.getLocation());
+            }
+            if (updatedHotel.getContact() != null) {
+                existingHotel.setContact(updatedHotel.getContact());
+            }
+            if (updatedHotel.getNumberOfRooms() != -1) {
+                existingHotel.setNumberOfRooms(updatedHotel.getNumberOfRooms());
+            }
+
+            if (updatedHotel.getRates() != null) {
+                existingHotel.setRates(updatedHotel.getRates());
+            }
             return hotelrepository.save(existingHotel);
-        }
-        else{
-            throw new NoSuchElementException("Hotel not found with the provided it"+id);
+        } else {
+            throw new NoSuchElementException("Hotel not found with the provided id: " + id);
         }
     }
     @Transactional

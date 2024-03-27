@@ -36,7 +36,7 @@ public class hotelcontroller {
         List<hotel> Hotels = new ArrayList<>(hotelservice.findHotelByLocation(location));
         return new ResponseEntity<>(Hotels,HttpStatus.OK);
     }
-    @PutMapping("/update/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<hotel> updateHotel(@PathVariable Long id, @RequestBody hotel updatedHotel){
         hotel updated = hotelservice.updateHotel(id,updatedHotel);
         return new ResponseEntity<>(updated,HttpStatus.OK);
