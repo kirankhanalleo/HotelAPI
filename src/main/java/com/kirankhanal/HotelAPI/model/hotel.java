@@ -19,7 +19,7 @@ public class hotel {
     @Column(name="contact")
     private String contact;
     @Column(name="numberOfRooms")
-    private int numberOfRooms;
+    private Integer numberOfRooms;
     @Column(name="rates")
     private BigDecimal rates;
 
@@ -41,7 +41,7 @@ public class hotel {
         return contact;
     }
 
-    public int getNumberOfRooms() {
+    public Integer getNumberOfRooms() {
         return numberOfRooms;
     }
 
@@ -66,7 +66,7 @@ public class hotel {
         this.contact = contact;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
+    public void setNumberOfRooms(Integer numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 
@@ -75,7 +75,7 @@ public class hotel {
     }
     //Parameterized Constructor
 
-    public hotel(Long hotelID, String hotelName, String location, String contact, int numberOfRooms, BigDecimal rates) {
+    public hotel(Long hotelID, String hotelName, String location, String contact, Integer numberOfRooms, BigDecimal rates) {
         this.hotelID = hotelID;
         this.hotelName = hotelName;
         this.location = location;

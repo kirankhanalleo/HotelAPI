@@ -42,10 +42,9 @@ public class hotelservice {
             if (updatedHotel.getContact() != null) {
                 existingHotel.setContact(updatedHotel.getContact());
             }
-            if (updatedHotel.getNumberOfRooms() != -1) {
+            if (updatedHotel.getNumberOfRooms() != null) {
                 existingHotel.setNumberOfRooms(updatedHotel.getNumberOfRooms());
             }
-
             if (updatedHotel.getRates() != null) {
                 existingHotel.setRates(updatedHotel.getRates());
             }
