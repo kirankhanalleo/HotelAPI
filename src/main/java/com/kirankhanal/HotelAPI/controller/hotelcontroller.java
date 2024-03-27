@@ -20,4 +20,10 @@ public class hotelcontroller {
         hotelservice.createNewHotel(hotel);
         return ResponseEntity.status(HttpStatus.OK).body("Hotel created successfully.");
     }
+    @GetMapping("/find")
+    public ResponseEntity<List<hotel>> findAllHotels(){
+        List<hotel> Hotels = new ArrayList<>(hotelservice.findAllHotels());
+        return new ResponseEntity<>(Hotels,HttpStatus.OK);
+    }
+
 }

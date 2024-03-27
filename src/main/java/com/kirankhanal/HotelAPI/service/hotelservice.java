@@ -5,6 +5,8 @@ import com.kirankhanal.HotelAPI.repository.hotelrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class hotelservice {
     @Autowired
@@ -13,5 +15,7 @@ public class hotelservice {
     public void createNewHotel(hotel hotel){
         hotelrepository.save(hotel);
     }
-
+    public List<hotel> findAllHotels() {
+        return hotelrepository.findAll();
+    }
 }
