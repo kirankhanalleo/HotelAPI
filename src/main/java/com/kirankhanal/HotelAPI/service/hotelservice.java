@@ -44,4 +44,8 @@ public class hotelservice {
             throw new NoSuchElementException("Hotel not found with the provided it"+id);
         }
     }
+    @Transactional
+    public void deleteHotelById(Long id){
+        hotelrepository.deleteById(id);
+    }
 }

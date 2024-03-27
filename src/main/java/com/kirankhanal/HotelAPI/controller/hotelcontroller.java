@@ -41,4 +41,9 @@ public class hotelcontroller {
         hotel updated = hotelservice.updateHotel(id,updatedHotel);
         return new ResponseEntity<>(updated,HttpStatus.OK);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteHotelById(@PathVariable Long id){
+        hotelservice.deleteHotelById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Hotel with id "+id+" deleted successfully");
+    }
 }
