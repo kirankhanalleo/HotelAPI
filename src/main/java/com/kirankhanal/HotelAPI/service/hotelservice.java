@@ -23,5 +23,7 @@ public class hotelservice {
     public Optional<hotel> findHotelById(Long id){
         return hotelrepository.findById(id);
     }
-
+    public List<hotel> findHotelByLocation(String location){
+        return hotelrepository.findByLocation(location);
+    }
 }

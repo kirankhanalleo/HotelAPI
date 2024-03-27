@@ -31,4 +31,9 @@ public class hotelcontroller {
         Optional<hotel> Hotel=hotelservice.findHotelById(id);
         return Hotel.map(hotel -> new ResponseEntity<>(hotel, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<hotel>> findHotelByLocation(@RequestParam String location){
+        List<hotel> Hotels = new ArrayList<>(hotelservice.findHotelByLocation(location));
+        return new ResponseEntity<>(Hotels,HttpStatus.OK);
+    }
 }
