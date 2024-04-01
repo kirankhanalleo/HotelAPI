@@ -1,6 +1,10 @@
 package com.kirankhanal.HotelAPI.controller;
+import com.kirankhanal.HotelAPI.controller.Request.CreateHotelRequest;
+import com.kirankhanal.HotelAPI.controller.Request.ViewHotelRequest;
+import com.kirankhanal.HotelAPI.controller.Request.ViewOneHotelRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +27,31 @@ public class hotelcontroller {
             description = "This endpoint adds a new hotel to the database."
     )
     @PostMapping("/create")
-    public ResponseEntity<String> createNewHotel(@RequestBody hotel hotel) {
-        hotelservice.createNewHotel(hotel);
+    public ResponseEntity<String> createNewHotel(@Valid @RequestBody CreateHotelRequest createHotelRequest) {
+        hotelservice.createNewHotel(createHotelRequest);
         return ResponseEntity.status(HttpStatus.OK).body("Hotel created successfully.");
+    }
+    @PostMapping("/create/multiple")
+    public ResponseEntity<String> createNewHotels(@Valid @RequestBody List<CreateHotelRequest> createHotelRequest) {
+        hotelservice.createNewHotels(createHotelRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("Hotels created successfully.");
     }
     @Operation(
             summary = "Retrieve all hotels",
             description = "This endpoint retrieves all hotels stored in the database."
     )
     @GetMapping("/find")
-    public ResponseEntity<List<hotel>> findAllHotels(){
-        List<hotel> Hotels = new ArrayList<>(hotelservice.findAllHotels());
-        return new ResponseEntity<>(Hotels,HttpStatus.OK);
+    public ResponseEntity<List<ViewHotelRequest>> findAllHotels(){
+        List<ViewHotelRequest> hotels = hotelservice.findAllHotels();
+        return new ResponseEntity<>(hotels,HttpStatus.OK);
     }
     @Operation(
             summary = "Retrieve hotel by ID",
             description = "This endpoint fetches a hotel from the database based on its unique identifier."
     )
     @GetMapping("/find/{id}")
-    public ResponseEntity<hotel> findHotelById(@PathVariable Long id){
-        Optional<hotel> Hotel=hotelservice.findHotelById(id);
+    public ResponseEntity<ViewOneHotelRequest> findHotelById(@PathVariable Long id){
+        Optional<ViewOneHotelRequest> Hotel=hotelservice.findHotelById(id);
         return Hotel.map(hotel -> new ResponseEntity<>(hotel, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @Operation(
