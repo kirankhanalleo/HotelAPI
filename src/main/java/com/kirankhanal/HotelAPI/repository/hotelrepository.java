@@ -10,5 +10,4 @@ import java.util.Optional;
 @Repository
 public interface hotelrepository extends JpaRepository<hotel,Long> {
     List<hotel> findByLocation(String location);
-
 }
