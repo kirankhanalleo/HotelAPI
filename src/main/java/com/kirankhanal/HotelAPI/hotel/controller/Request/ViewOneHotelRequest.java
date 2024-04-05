@@ -1,4 +1,4 @@
-package com.kirankhanal.HotelAPI.controller.Request;
+package com.kirankhanal.HotelAPI.hotel.controller.Request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,10 +8,11 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ViewHotelRequest {
+public class ViewOneHotelRequest {
     private String hotelName;
     private String location;
     private String contact;
-    private Integer NumberOfRooms;
+    private Integer numberOfRooms;
     private BigDecimal rates;
+
 }

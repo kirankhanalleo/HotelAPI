@@ -1,16 +1,16 @@
-package com.kirankhanal.HotelAPI.model;
+package com.kirankhanal.HotelAPI.hotel;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name="hotel")
-public class hotel implements Serializable {
+public class Hotel implements Serializable {
     //Basic Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,4 @@ public class hotel implements Serializable {
     private String contact;
     @Column(name="number_of_rooms")
     private Integer numberOfRooms;
-    @Column(name="rates")
-    private BigDecimal rates;
 }

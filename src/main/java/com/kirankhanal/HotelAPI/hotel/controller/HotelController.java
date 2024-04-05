@@ -1,7 +1,7 @@
-package com.kirankhanal.HotelAPI.controller;
-import com.kirankhanal.HotelAPI.controller.Request.CreateHotelRequest;
-import com.kirankhanal.HotelAPI.controller.Request.ViewHotelRequest;
-import com.kirankhanal.HotelAPI.controller.Request.ViewOneHotelRequest;
+package com.kirankhanal.HotelAPI.hotel.controller;
+import com.kirankhanal.HotelAPI.hotel.controller.Request.CreateHotelRequest;
+import com.kirankhanal.HotelAPI.hotel.controller.Request.ViewHotelRequest;
+import com.kirankhanal.HotelAPI.hotel.controller.Request.ViewOneHotelRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.kirankhanal.HotelAPI.model.hotel;
-import com.kirankhanal.HotelAPI.service.hotelservice;
+import com.kirankhanal.HotelAPI.hotel.Hotel;
+import com.kirankhanal.HotelAPI.hotel.service.HotelService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,22 +18,22 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/hotels")
-@Tag(name="hotelcontroller",description = "Handles endpoints related to hotel management, including creating, updating, deleting, and retrieving hotel information.")
-public class hotelcontroller {
+@Tag(name="hotelController",description = "Handles endpoints related to hotel management, including creating, updating, deleting, and retrieving hotel information.")
+public class HotelController {
     @Autowired
-    private hotelservice hotelservice;
+    private HotelService hotelService;
     @Operation(
             summary = "Create a new hotel",
             description = "This endpoint adds a new hotel to the database."
     )
     @PostMapping("/create")
     public ResponseEntity<String> createNewHotel(@Valid @RequestBody CreateHotelRequest createHotelRequest) {
-        hotelservice.createNewHotel(createHotelRequest);
+        hotelService.createNewHotel(createHotelRequest);
         return ResponseEntity.status(HttpStatus.OK).body("Hotel created successfully.");
     }
     @PostMapping("/create/multiple")
     public ResponseEntity<String> createNewHotels(@Valid @RequestBody List<CreateHotelRequest> createHotelRequest) {
-        hotelservice.createNewHotels(createHotelRequest);
+        hotelService.createNewHotels(createHotelRequest);
         return ResponseEntity.status(HttpStatus.OK).body("Hotels created successfully.");
     }
     @Operation(
@@ -42,7 +42,7 @@ public class hotelcontroller {
     )
     @GetMapping("/find")
     public ResponseEntity<List<ViewHotelRequest>> findAllHotels(){
-        List<ViewHotelRequest> hotels = hotelservice.findAllHotels();
+        List<ViewHotelRequest> hotels = hotelService.findAllHotels();
         return new ResponseEntity<>(hotels,HttpStatus.OK);
     }
     @Operation(
@@ -51,7 +51,7 @@ public class hotelcontroller {
     )
     @GetMapping("/find/{id}")
     public ResponseEntity<ViewOneHotelRequest> findHotelById(@PathVariable Long id){
-        Optional<ViewOneHotelRequest> Hotel=hotelservice.findHotelById(id);
+        Optional<ViewOneHotelRequest> Hotel= hotelService.findHotelById(id);
         return Hotel.map(hotel -> new ResponseEntity<>(hotel, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @Operation(
@@ -59,8 +59,8 @@ public class hotelcontroller {
             description = "This endpoint find hotels based on the specified location parameter"
     )
     @GetMapping("/search")
-    public ResponseEntity<List<hotel>> findHotelByLocation(@RequestParam String location){
-        List<hotel> Hotels = new ArrayList<>(hotelservice.findHotelByLocation(location));
+    public ResponseEntity<List<Hotel>> findHotelByLocation(@RequestParam String location){
+        List<Hotel> Hotels = new ArrayList<>(hotelService.findHotelByLocation(location));
         return new ResponseEntity<>(Hotels,HttpStatus.OK);
     }
     @Operation(
@@ -68,8 +68,8 @@ public class hotelcontroller {
             description = "This endpoint updates a hotel from the database based on its unique identifier."
     )
     @PatchMapping("/update/{id}")
-    public ResponseEntity<hotel> updateHotel(@PathVariable Long id, @RequestBody hotel updatedHotel){
-        hotel updated = hotelservice.updateHotel(id,updatedHotel);
+    public ResponseEntity<Hotel> updateHotel(@PathVariable Long id, @RequestBody Hotel updatedHotel){
+        Hotel updated = hotelService.updateHotel(id,updatedHotel);
         return new ResponseEntity<>(updated,HttpStatus.OK);
     }
     @Operation(
@@ -78,7 +78,7 @@ public class hotelcontroller {
     )
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteHotelById(@PathVariable Long id){
-        hotelservice.deleteHotelById(id);
+        hotelService.deleteHotelById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Hotel with id "+id+" deleted successfully");
     }
     @Operation(
@@ -87,7 +87,7 @@ public class hotelcontroller {
     )
     @DeleteMapping("/delete/all")
     public ResponseEntity<String> deleteAllHotel(){
-        hotelservice.deleteAllHotels();
+        hotelService.deleteAllHotels();
         return ResponseEntity.status(HttpStatus.OK).body("All hotels deleted successfully.");
     }
 }

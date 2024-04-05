@@ -1,4 +1,4 @@
-package com.kirankhanal.HotelAPI.controller.Request;
+package com.kirankhanal.HotelAPI.hotel.controller.Request;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
